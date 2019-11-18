@@ -1,11 +1,15 @@
-from django.http import JsonResponse
+import json
+
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 
-def update_model_detail_view(request):
+def json_example_view(request):
     data = {
         "count": 1000,
         "content": "Some new content"
     }
-    return JsonResponse(data)
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type='application/json')
+    # return JsonResponse(data)
 
