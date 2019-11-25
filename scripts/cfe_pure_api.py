@@ -24,7 +24,7 @@ def create_update():
         'user': 1,
         'content': 'Another Some more cool content'
     }
-    r = requests.post(BASE_URL + ENDPOINT + "1/", data=new_data)
+    r = requests.post(BASE_URL + ENDPOINT, data=json.dumps(new_data))
     print(r.status_code)
     if r.status_code == requests.codes.ok:
         # print(r.json())
@@ -50,4 +50,4 @@ def do_obj_update():
     
     return r.text
 
-print(do_obj_update())
+print(create_update())
