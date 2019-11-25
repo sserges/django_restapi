@@ -58,8 +58,18 @@ class UpdateModelDetailAPIView(HttpResponseMixin, CSRFExemptMixin, View):
             error_data = json.dumps({"message": "Invalid data sent, please send using JSON."})
             return self.render_to_response(error_data, status=400)
 
-        new_data = json.loads(request.body)
-        print(new_data['content'])
+
+        passed_data = json.loads(request.body)
+        form = UpdateModelForm(passed_data)
+        if form.is_valid():
+            obj = form.save(commit=True)
+            obj_data = obj.serialize()
+            return self.render_to_response(obj_data, status=201)
+        if form.errors:
+            data = json.dumps(form.errors)
+            return self.render_to_response(data, status=400)
+
+
         json_data  = json.dumps({})
         return self.render_to_response(json_data)
     

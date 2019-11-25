@@ -50,4 +50,4 @@ def do_obj_update():
     
     return r.text
 
-print(create_update())
+print(do_obj_update())
