@@ -7,8 +7,11 @@ BASE_URL = "http://127.0.0.1:8000/"
 
 ENDPOINT = "api/updates/"
 
-def get_list():
-    r = requests.get(BASE_URL + ENDPOINT)
+def get_list(id=None):
+    data = json.dumps({})
+    if id is not None:
+        data = json.dumps({"id": id})
+    r = requests.get(BASE_URL + ENDPOINT, data=data)
     data = r.json()
     # for obj in data:
     #     print(obj['id'])
@@ -35,9 +38,10 @@ def create_update():
 
 def do_obj_update():
     new_data = {
-        'content': ''
+        'id': 7,
+        'content': 'rrr awesome'
     }
-    r = requests.delete(BASE_URL + ENDPOINT + "4/", data=json.dumps(new_data))
+    r = requests.put(BASE_URL + ENDPOINT, data=json.dumps(new_data))
     # new_data = {
     #     'id': 1,
     #     'content': 'Another Some more cool content'
@@ -53,9 +57,9 @@ def do_obj_update():
 
 def do_obj_delete():
     new_data = {
-        'content': ''
+        'id': '7'
     }
-    r = requests.delete(BASE_URL + ENDPOINT + "3/")
+    r = requests.delete(BASE_URL + ENDPOINT, data=json.dumps(new_data))
     # new_data = {
     #     'id': 1,
     #     'content': 'Another Some more cool content'
@@ -68,4 +72,4 @@ def do_obj_delete():
     
     return r.text
 
-print(do_obj_delete())
+print(get_list())
