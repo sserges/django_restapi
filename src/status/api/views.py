@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -16,7 +16,7 @@ class StatusListSearchAPIView(APIView):
         return Response(serializer.data)
 
 
-class StatusAPIView(generics.ListAPIView):
+class StatusAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     permission_classes     = []
     authentication_classes = []
     # queryset               = Status.objects.all()
@@ -28,6 +28,9 @@ class StatusAPIView(generics.ListAPIView):
         if query is not None:
             qs = qs.filter(content__icontains=query)
         return qs
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 
@@ -41,17 +44,17 @@ class StatusCreateAPIView(generics.CreateAPIView):
     #     serializer.save(user=self.request.user)
 
 
-class StatusDetailAPIView(generics.RetrieveAPIView):
+class StatusDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
     permission_classes     = []
     authentication_classes = []
     queryset               = Status.objects.all()
     serializer_class       = StatusSerializer
-    # lookup_field           = 'id'
-
-    # def get_object(self, *args, **kwargs):
-    #     kwargs = self.kwargs
-    #     kw_id = kwargs.get('id')
-    #     return Status.objects.get(id=kw_id)
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 class StatusUpdateAPIView(generics.UpdateAPIView):
