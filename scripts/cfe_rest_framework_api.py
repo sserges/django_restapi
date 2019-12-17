@@ -3,7 +3,7 @@ import json, os
 import requests
 
 ENDPOINT = "http://127.0.0.1:8000/api/status/"
-AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/jwt/"
+AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/"
 REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
 
 image_path = os.path.join(os.getcwd(), "readyplayeronejpg.jpg")
@@ -18,27 +18,28 @@ data = {
 }
 
 r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
-token = r.json()['token']
+token = r.json()#['token']
+print(token)
 
 
 
-headers = {
-    # "Content-Type": "application/json",
-    "Authorization": "JWT " + token
-}
+# headers = {
+#     # "Content-Type": "application/json",
+#     "Authorization": "JWT " + token
+# }
 
-with open(image_path, 'rb') as image:
-    file_data = {
-        'image': image
-    }
+# with open(image_path, 'rb') as image:
+#     file_data = {
+#         'image': image
+#     }
 
-    data = {
-        "content": "Updated description"
-    }
+#     data = {
+#         "content": "Updated description"
+#     }
 
-    post_data = {} #json.dumps({"content": ""})
-    posted_response = requests.put(ENDPOINT + str(21) + "/" , data=data, headers=headers, files=file_data)
-    print(posted_response.text)
+#     post_data = {} #json.dumps({"content": ""})
+#     posted_response = requests.put(ENDPOINT + str(21) + "/" , data=data, headers=headers, files=file_data)
+#     print(posted_response.text)
 
 
 
