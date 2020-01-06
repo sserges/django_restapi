@@ -41,6 +41,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user = obj
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
+        context = self.context
+        request = context['request']
+        print(request.user.is_authenticated())
         response = jwt_response_payload_handler(token, user, request=None)
     
     def validate_email(self, value):
