@@ -14,8 +14,8 @@ headers = {
 }
 
 data = {
-    'username': 'test8',
-    'email': 'test@test9.com',
+    'username': 'test91',
+    'email': 'test@test91.com',
     'password': 'admin3004',
     'password2': 'admin3004'
 }
