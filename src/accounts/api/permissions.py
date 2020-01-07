@@ -17,6 +17,8 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     Assumes the model instance has an `owner` attribute.
     """
 
+    message = 'You must be the owner of this content to change.'
+
     def has_object_permission(self, request, view, obj):
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.

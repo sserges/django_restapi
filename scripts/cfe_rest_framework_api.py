@@ -2,27 +2,68 @@ import json, os
 
 import requests
 
-ENDPOINT = "http://127.0.0.1:8000/api/status/"
-AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/register/"
+
+AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/"
 REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
 
 image_path = os.path.join(os.getcwd(), "readyplayeronejpg.jpg")
 
 headers = {
-    "Content-Type": "application/json",
-    "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJ0ZXN0OTYiLCJleHAiOjE1Nzg0MjE3NjksImVtYWlsIjoidGVzdEB0ZXN0OTYuY29tIiwib3JpZ19pYXQiOjE1Nzg0MjE0Njl9.OwigHbcC4WgtUqlA55AyH2_HJx9FJPWD0nSzwN1psfo'
+    "Content-Type": "application/json"
 }
 
 data = {
     'username': 'test96',
-    'email': 'test@test96.com',
-    'password': 'admin3004',
-    'password2': 'admin3004'
+    'password': 'admin3004'
 }
 
 r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
-token = r.json()#['token']
+token = r.json()['token']
 print(token)
+
+
+ENDPOINT = "http://127.0.0.1:8000/api/status/15/"
+
+
+headers2 = {
+    # "Content-Type": "application/json",
+    "Authorization": "JWT " + token
+}
+
+data2 = {
+    'content': 'This is new content post'
+}
+
+with open(image_path, 'rb') as image:
+    file_data = {
+        'image': image
+    }   
+    r = requests.put(ENDPOINT, data=data2, headers=headers2, files=file_data)
+    print(r.text)
+
+
+
+# ENDPOINT = "http://127.0.0.1:8000/api/status/"
+# AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/register/"
+# REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
+
+# image_path = os.path.join(os.getcwd(), "readyplayeronejpg.jpg")
+
+# headers = {
+#     "Content-Type": "application/json",
+#     "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJ0ZXN0OTYiLCJleHAiOjE1Nzg0MjE3NjksImVtYWlsIjoidGVzdEB0ZXN0OTYuY29tIiwib3JpZ19pYXQiOjE1Nzg0MjE0Njl9.OwigHbcC4WgtUqlA55AyH2_HJx9FJPWD0nSzwN1psfo'
+# }
+
+# data = {
+#     'username': 'test96',
+#     'email': 'test@test96.com',
+#     'password': 'admin3004',
+#     'password2': 'admin3004'
+# }
+
+# r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
+# token = r.json()#['token']
+# print(token)
 
 
 
