@@ -10,12 +10,12 @@ image_path = os.path.join(os.getcwd(), "readyplayeronejpg.jpg")
 
 headers = {
     "Content-Type": "application/json",
-    # "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE1NzY2ODM4NDIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNTc2NjgzNTQyfQ.RAxqE1VofW6jSO804-zQnnEtEBF4SzfGj7JPK4bBpes'
+    "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJ0ZXN0OTYiLCJleHAiOjE1Nzg0MjE3NjksImVtYWlsIjoidGVzdEB0ZXN0OTYuY29tIiwib3JpZ19pYXQiOjE1Nzg0MjE0Njl9.OwigHbcC4WgtUqlA55AyH2_HJx9FJPWD0nSzwN1psfo'
 }
 
 data = {
-    'username': 'test94',
-    'email': 'test@test94.com',
+    'username': 'test96',
+    'email': 'test@test96.com',
     'password': 'admin3004',
     'password2': 'admin3004'
 }
