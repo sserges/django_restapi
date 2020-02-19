@@ -9,6 +9,22 @@ Serializers -> JSON
 Serializers -> validate data
 '''
 
+class StatusInlineUserSerializer(serializers.ModelSerializer):
+    uri = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Status
+        fields = [
+            'id',
+            'content',
+            'image',
+            'uri'
+        ]
+    
+    def get_uri(self, obj):
+        return "/api/users/{id}".format(id=obj.id)
+
+
 class StatusSerializer(serializers.ModelSerializer):
     user = UserPublicSerializer(read_only=True)
     uri = serializers.SerializerMethodField(read_only=True)
