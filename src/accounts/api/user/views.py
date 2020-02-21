@@ -1,10 +1,12 @@
 from django.contrib.auth import get_user_model
 from rest_framework import permissions, generics, pagination
+from rest_framework.response import Response
 
 from accounts.api.permissions import AnonPermissionOnly
 from .serializers import UserDetailSerializer
 
 from status.api.serializers import StatusInlineUserSerializer
+from status.api.views import StatusAPIView
 from status.models import Status
 
 
@@ -23,8 +25,9 @@ class UserDetailAPIView(generics.RetrieveAPIView):
 
 
 
-class UserStatusAPIView(generics.ListAPIView):
+class UserStatusAPIView(StatusAPIView):
     serializer_class = StatusInlineUserSerializer
+    # search_fields = ('user__username', 'content')
     # pagination_class = CFEAPIPagination
 
     def get_queryset(self, *args, **kwargs):
@@ -32,3 +35,6 @@ class UserStatusAPIView(generics.ListAPIView):
         if username is None:
             return Status.objects.none()
         return Status.objects.filter(user__username=username)
+    
+    def post(self, request, *args, **kwargs):
+        return Response({"detail": "Not allowed here"}, status=400)
